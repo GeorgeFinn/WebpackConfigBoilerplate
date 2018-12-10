@@ -1,6 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
+
 module.exports = {
   entry: {
     main: [
@@ -19,6 +21,19 @@ module.exports = {
     overlay: true,
     stats: {
       colors: true
+    }
+  },
+  devtool: "source-map",
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      cacheGroups: {
+        vendor: {
+          name: "vendor",
+          chunks: "initial",
+          minChunks: 2
+        }
+      }
     }
   },
   module: {
@@ -46,6 +61,9 @@ module.exports = {
       template: "./src/index.ejs",
       inject: true,
       title: "WebpackBoilerplate"
+    }),
+    new BundleAnalyzerPlugin({
+      generateStatsFile: true
     })
   ]
 };
