@@ -57,7 +57,7 @@ module.exports = env => {
       new HTMLWebpackPlugin({
         template: "./src/index.ejs",
         inject: true,
-        title: "Link's Journal"
+        title: "WebpackBoilerplate"
       }),
       new UglifyJSPlugin(),
       new CompressionPlugin({
