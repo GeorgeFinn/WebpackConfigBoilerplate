@@ -20,7 +20,7 @@ if (!isProd) {
 
   server.use(webpackDevMiddleware);
   server.use(webpackHotMiddlware);
-  console.log("Middleware enabled");
+  console.log("Middleware enabled")
 }
 
 const expressStaticGzip = require("express-static-gzip");
