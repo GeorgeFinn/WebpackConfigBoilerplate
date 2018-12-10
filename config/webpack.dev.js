@@ -3,7 +3,9 @@ const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: {
-    main: ["./src/main.js"]
+    main: [
+      "webpack-hot-middleware/client?reload=true",
+      "./src/main.js"]
   },
   mode: "development",
   output: {
@@ -30,23 +32,20 @@ module.exports = {
             }
           }
         ]
-      },
-      { test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            options: {
-              attrs: "[img:src]"
-            }
-          }
-        ]
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("development")
+      }
+    }),
     new HTMLWebpackPlugin({
-      template: "./src/index.html"
+      template: "./src/index.ejs",
+      inject: true,
+      title: "WebpackBoilerplate"
     })
   ]
 };

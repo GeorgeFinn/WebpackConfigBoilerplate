@@ -1,5 +1,6 @@
-require("webpack-hot-middleware/client?reload=true")
 require('./main.css')
 require('./nav.css')
-require('./index.html')
-require('./client/app.js')
+require("./client/app")
+
+
+console.log(`Environment is ${process.env.NODE_ENV}`)

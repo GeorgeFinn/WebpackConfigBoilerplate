@@ -1,9 +1,9 @@
-import express from 'express'
+import express from "express"
 const server = express()
 import path from "path"
-const isProd = process.env.NODE_ENV === "production"
 
-if(!isProd) {
+const isProd = process.env.NODE_ENV === "production"
+if (!isProd) {
   const webpack = require("webpack")
   const config = require("../../config/webpack.dev.js")
   const compiler = webpack(config)
@@ -23,10 +23,16 @@ if(!isProd) {
   console.log("Middleware enabled")
 }
 
-const staticMiddleware = express.static("dist")
-server.use(staticMiddleware)
+const expressStaticGzip = require("express-static-gzip")
+server.use(
+  expressStaticGzip("dist", {
+    enableBrotli: true
+  })
+)
 
 const PORT = process.env.PORT || 8080
 server.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`)
+  console.log(
+    `Server listening on http://localhost:${PORT} in ${process.env.NODE_ENV}`
+  )
 })
